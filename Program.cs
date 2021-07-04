@@ -10,16 +10,6 @@ namespace GridGenerator
     {
         #region Methods
 
-        private static void ReadAndProcessValue(out int val)
-        {
-            string s = Console.ReadLine();
-            if (!int.TryParse(s,out val))
-            {
-                Console.WriteLine("Invalid Value!");
-                Main(null);
-            }
-        }
-
         private static void Main(string[] args)
         {
             Console.WriteLine("Square Height (px): ");
@@ -58,7 +48,16 @@ namespace GridGenerator
             image.SaveAsPng($"./{fname}.png");
 
             Console.WriteLine("Saved Your Grid Image!");
-            Console.ReadLine();
+        }
+
+        private static void ReadAndProcessValue(out int val)
+        {
+            string s = Console.ReadLine();
+            if (!int.TryParse(s, out val))
+            {
+                Console.WriteLine("Invalid Value!");
+                Main(null);
+            }
         }
 
         #endregion Methods
