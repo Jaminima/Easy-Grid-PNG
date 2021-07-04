@@ -48,22 +48,28 @@ namespace GridGenerator
         {
             Console.WriteLine("Creating Image, please wait....");
 
-            Image<Rgba32> image = new Image<Rgba32>((squares_wide * square_width) + (edge_thickness / 2), (squares_high * square_height) + (edge_thickness / 2));
-            image.Mutate(x => x.BackgroundColor(background_color));
-            for (int x = 0, y = 0; y < squares_high;)
+            using (Image<Rgba32> image = new Image<Rgba32>((squares_wide * square_width) + (edge_thickness / 2), (squares_high * square_height) + (edge_thickness / 2)))
             {
-                Rectangle r = new Rectangle(x * square_width, y * square_height, square_width, square_height);
-                image.Mutate(x => x.Draw(edge_color, edge_thickness, r));
+                image.Mutate(x => x.BackgroundColor(background_color));
 
-                x++;
-                if (x == squares_wide)
-                {
-                    x = 0;
-                    y++;
-                }
+                image.Mutate(m=>{
+                    Rectangle r;
+                    for (int x = 0, y = 0; y < squares_high;)
+                    {
+                        r = new Rectangle(x * square_width, y * square_height, square_width, square_height);
+                        m.Draw(edge_color, edge_thickness, r);
+
+                        x++;
+                        if (x == squares_wide)
+                        {
+                            x = 0;
+                            y++;
+                        }
+                    }
+                });
+
+                image.SaveAsPng($"./{fileName}.png");
             }
-
-            image.SaveAsPng($"./{fileName}.png");
             Console.WriteLine($"Saved Your Grid Image To '{fileName}.png'");
         }
 
