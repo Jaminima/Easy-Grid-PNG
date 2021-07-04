@@ -55,9 +55,11 @@ namespace GridGenerator
             string s = Console.ReadLine();
             if (!int.TryParse(s, out val))
             {
-                Console.WriteLine("Invalid Value!");
+                Console.Clear();
+                Console.WriteLine($"'{s}' Is an Invalid Value!");
                 Main(null);
             }
+            Console.WriteLine();
         }
 
         #endregion Methods
